@@ -92,10 +92,10 @@ def plot_points_opencv(img, points_data, save_path=None):
                 cv2.circle(annotated_img, (x_pixel, y_pixel), 8, color, -1)
                 cv2.circle(annotated_img, (x_pixel, y_pixel), 10, color, 2)
                 
-                # Draw label
+                # Draw label with smaller font
                 font = cv2.FONT_HERSHEY_SIMPLEX
-                font_scale = 0.6
-                thickness = 2
+                font_scale = 0.4  # Changed from 0.6 to 0.4 for smaller text
+                thickness = 1     # Changed from 2 to 1 for thinner text
                 
                 # Get text size for background
                 (text_width, text_height), baseline = cv2.getTextSize(
@@ -108,7 +108,7 @@ def plot_points_opencv(img, points_data, save_path=None):
                             (x_pixel + text_width + 5, y_pixel - 5),
                             color, -1)
                 
-                # Draw text
+                # Draw text with smaller, thinner style
                 cv2.putText(annotated_img, label,
                           (x_pixel, y_pixel - 10),
                           font, font_scale, (255, 255, 255), thickness)
@@ -183,16 +183,16 @@ def plot_bounding_boxes_opencv(img, bounding_boxes_data, save_path=None):
                 # Select color
                 color = colors[i % len(colors)]
                 
-                # Draw bounding box
+                # Draw bounding box with thinner lines
                 cv2.rectangle(annotated_img,
                             (x1_pixel, y1_pixel),
                             (x2_pixel, y2_pixel),
-                            color, 3)
+                            color, 2)  # Changed from 3 to 2 for thinner lines
                 
-                # Draw label
+                # Draw label with smaller font
                 font = cv2.FONT_HERSHEY_SIMPLEX
-                font_scale = 0.7
-                thickness = 2
+                font_scale = 0.5  # Changed from 0.7 to 0.5 for smaller text
+                thickness = 1     # Changed from 2 to 1 for thinner text
                 
                 # Get text size for background
                 (text_width, text_height), baseline = cv2.getTextSize(
@@ -205,7 +205,7 @@ def plot_bounding_boxes_opencv(img, bounding_boxes_data, save_path=None):
                             (x1_pixel + text_width + 10, y1_pixel),
                             color, -1)
                 
-                # Draw text
+                # Draw text with smaller, thinner style  
                 cv2.putText(annotated_img, label,
                           (x1_pixel + 5, y1_pixel - 5),
                           font, font_scale, (255, 255, 255), thickness)
@@ -251,11 +251,14 @@ def plot_points_pil(pil_image, points_data, save_path=None):
         "purple", "orange", "pink", "brown", "gray", "lime"
     ]
     
-    # Try to load a font, fallback to default if not available
+    # Try to load Calibri font, fallback to other fonts if not available
     try:
-        font = ImageFont.truetype("arial.ttf", 16)
+        font = ImageFont.truetype("calibri.ttf", 12)  # Smaller Calibri font
     except:
-        font = ImageFont.load_default()
+        try:
+            font = ImageFont.truetype("arial.ttf", 12)  # Fallback to Arial
+        except:
+            font = ImageFont.load_default()  # Last resort default font
     
     for i, detection in enumerate(points_data):
         try:
@@ -323,11 +326,14 @@ def plot_bounding_boxes_pil(pil_image, bounding_boxes_data, save_path=None):
         "purple", "orange", "pink", "brown", "gray", "lime"
     ]
     
-    # Try to load a font, fallback to default if not available
+    # Try to load Calibri font, fallback to other fonts if not available
     try:
-        font = ImageFont.truetype("arial.ttf", 16)
+        font = ImageFont.truetype("calibri.ttf", 12)  # Smaller Calibri font
     except:
-        font = ImageFont.load_default()
+        try:
+            font = ImageFont.truetype("arial.ttf", 12)  # Fallback to Arial
+        except:
+            font = ImageFont.load_default()  # Last resort default font
     
     for i, detection in enumerate(bounding_boxes_data):
         try:
@@ -351,9 +357,9 @@ def plot_bounding_boxes_pil(pil_image, bounding_boxes_data, save_path=None):
                 # Select color
                 color = colors[i % len(colors)]
                 
-                # Draw bounding box
+                # Draw bounding box with thinner lines
                 draw.rectangle([x1_pixel, y1_pixel, x2_pixel, y2_pixel],
-                             outline=color, width=3)
+                             outline=color, width=2)  # Changed from 3 to 2 for thinner lines
                 
                 # Draw label with background
                 bbox = draw.textbbox((x1_pixel + 5, y1_pixel - 25), label, font=font)
