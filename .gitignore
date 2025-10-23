@@ -1,5 +1,7 @@
 # Environment variables
 .env
+.env.local
+.env.*.local
 
 # Python
 __pycache__/
@@ -11,21 +13,40 @@ env/
 .venv/
 venv/
 ENV/
+*.pyc
+*.pyo
+*.pyd
 
 # IDE
 .vscode/
 .idea/
 *.swp
 *.swo
+*.sublime-*
 
 # OS
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
 
-# Project specific
+# Project specific - Generated images
 captured_image_*.jpg
+captured_image_*.png
 annotated_image_*.jpg
-temp_for_gemini.jpg
+annotated_image_*.png
+temp_for_gemini.*
+*.jpg
+*.png
+*.jpeg
 
 # Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
 *.log
